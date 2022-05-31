@@ -1,0 +1,18 @@
+{
+    "welcome": "",
+    "prefix": "!",
+    "welcome_chat": [],
+    "locked_command": [
+        "global",
+        "userinfo",
+        "adhaarcard",
+        "join",
+        "all",
+        "kundali"
+    ],
+    "favorite_users": [],
+    "favorite_chats": [
+        "a2444a78-396a-46cb-9354-100d574901f6"
+    ],
+    "banned_words": []
+}

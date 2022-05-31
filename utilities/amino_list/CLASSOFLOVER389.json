@@ -1,0 +1,27 @@
+{
+    "welcome": "",
+    "prefix": "!",
+    "welcome_chat": [],
+    "locked_command": [],
+    "favorite_users": [],
+    "favorite_chats": [
+        "eba88d6e-0d8e-4e73-9cbc-cb82a9bac963",
+        "faa4a85a-2ef1-07f4-2840-6379f4b15f10"
+    ],
+    "banned_words": [
+        "bsdk",
+        "mc",
+        "bc",
+        "chutiya",
+        "madarchod",
+        "benchod",
+        "teri",
+        "maaa",
+        "kaaa",
+        "chuttiyaa",
+        "bhadve",
+        "ke",
+        "lode/lodi",
+        "baku"
+    ]
+}

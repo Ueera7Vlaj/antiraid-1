@@ -1,0 +1,16 @@
+{
+    "welcome": "",
+    "prefix": "!",
+    "welcome_chat": [],
+    "locked_command": [
+        "follow",
+        "follow",
+        "hidden",
+        "brazz"
+    ],
+    "favorite_users": [],
+    "favorite_chats": [
+        "660b9750-4de3-08f4-3b4a-9d3208a1da64"
+    ],
+    "banned_words": []
+}
