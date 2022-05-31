@@ -1,20 +1,17 @@
 
 
-proxy = {
-  "http": "http://qlgv6:dyui6qsl@92.240.217.80:5432",
-  "https": "http://qlgv6:dyui6qsl@92.240.217.80:5432"
-  }
-from keep_alive import keep_alive
+
+#from keep_alive import keep_alive
 #keep_alive()
 import os
 from os import system
 from os import sys
 #os.system("pip install Dick.py==1.3.1")
-os.system("pip install secmail pytz pymongo")
-os.system("pip install websocket-client==0.57.0")
+#os.system("pip install secmail pytz pymongo")
+#os.system("pip install websocket-client==0.57.0")
 from os import path
 #from keep_alive import keep_alive
-keep_alive()
+#keep_alive()
 import json
 
 from Tam import l_amino
@@ -172,9 +169,9 @@ Time : {current_time}""",embedTitle=f"{data.author}",embedLink=f"ndc://x{data.co
     	elif int(time.time()) - JOIN_LEAVE_DETECTOR[user_id] > 0.4:
     		JOIN_LEAVE_DETECTOR[user_id] = int(time.time())
 
-#@client.on_all()
+@client.on_all()
 def text_magag(data):
-	mt=[114,109,107,115,116,110,111,112,113,114,117,124,125,126,128]
+	mt=[109,107]
 	mtype = data.info.message.type
 	
 	if mtype in mt:
