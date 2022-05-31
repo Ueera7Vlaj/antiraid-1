@@ -10,7 +10,7 @@ import time
 from pymongo import MongoClient
 import urllib.parse
 import ssl
-from amino import Client, SubClient, ACM
+from local_amino import Client, SubClient, ACM
 from .commands import *
 from .extensions import *
 mongo = MongoClient("mongodb://alexa:aman@cluster0-shard-00-00.3nela.mongodb.net:27017,cluster0-shard-00-01.3nela.mongodb.net:27017,cluster0-shard-00-02.3nela.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-ngo3g6-shard-0&authSource=admin&retryWrites=true&w=majority")
