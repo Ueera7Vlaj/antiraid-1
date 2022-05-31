@@ -13,7 +13,7 @@ from threading import Thread
 from contextlib import suppress
 from uuid import uuid4
 
-from local_amino import Client
+from amino import Client
 from .commands import *
 from .extensions import *
 from .Bot import Bot
