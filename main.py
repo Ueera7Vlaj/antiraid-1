@@ -8,7 +8,7 @@ from os import system
 from os import sys
 #os.system("pip install Dick.py==1.3.1")
 #os.system("pip install secmail pytz pymongo")
-#os.system("pip install websocket-client==0.57.0")
+os.system("pip install websocket-client==0.57.0")
 from os import path
 #from keep_alive import keep_alive
 #keep_alive()
