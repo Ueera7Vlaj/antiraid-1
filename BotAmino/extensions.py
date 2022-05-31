@@ -5,7 +5,7 @@ from contextlib import suppress
 from unicodedata import normalize
 from string import punctuation
 
-from local_amino import objects
+from amino import objects
 from .Bot import Bot
 
 
