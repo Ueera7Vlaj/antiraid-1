@@ -79,13 +79,13 @@ for i in res:
 	y=i["sid"]
 	lis.append(y)
 key="9417fd96-0657-4cb1-b33d-cf6ec3352857"
-app_name="amino9911"
+app_name="client9911"
 def restarts():
     heroku_conn = heroku3.from_key(key)
     botapp= heroku_conn.apps()[app_name]
     botapp.restart()
 #client=BotAmino(email="Loganpp2921@gmail.com", password="spamer123lodu")
-client=BotAmino(sid=sidd)
+client=BotAmino(sid=sidss)
 
 
 
@@ -171,13 +171,16 @@ Time : {current_time}""",embedTitle=f"{data.author}",embedLink=f"ndc://x{data.co
 
 @client.on_all()
 def text_magag(data):
-	mt=[109,107]
+	#mt=[109,107]
+	mt=[114,109,107,115,116,110,111,112,113,114,117,124,125,126,128]
 	mtype = data.info.message.type
 	
-	if mtype in mt:
+	if mtype!=0:
 		
 		user_id=data.authorId
-		AID=client.get_user_info(userId=user_id).aminoId
+		#GlobalId: https://aminoapps.com/u/{str(AID)}
+
+		#AID=client.get_user_info(userId=user_id).aminoId
 		val=data.subClient.get_chat_thread(data.chatId).title
 		
 		ch=data.subClient.favorite_chats
@@ -191,7 +194,7 @@ def text_magag(data):
 		else:
 		  	chatlink="Private Chat"
 		x=data.subClient.get_chat_thread(data.chatId).json["uid"]
-		rol=data.subClient.get_user_info(data.authorId).json['role']
+		rol=data.subClient.get_user_info(data.authorId).role
 		if user_id !=client.userId and rol==0:
 			mtype = data.info.message.type
 			if mtype in mt and data.message != None:
@@ -205,7 +208,6 @@ def text_magag(data):
 [c]𐄁𐄙𐄁𐄙𐄁𐄙𐄁𐄙𐄁𐄙𐄁𐄙𐄁𐄙𐄁
 Reason : Ghost Spam
 Chat : {chatlink}
-GlobalId: https://aminoapps.com/u/{str(AID)}
 
 [c]𐄁𐄙𐄁𐄙𐄁𐄙𐄁𐄙𐄁𐄙𐄁𐄙𐄁𐄙𐄁
 
