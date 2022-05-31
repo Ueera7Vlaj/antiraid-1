@@ -1,0 +1,12 @@
+pymongo
+json_minify
+secmail
+aiohttp
+requests_random_user_agent
+names
+bs4
+pytz
+websocket-client==0.57.0
+websockets
+wget
+heroku3
