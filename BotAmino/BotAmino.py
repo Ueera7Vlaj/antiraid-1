@@ -354,8 +354,8 @@ class BotAmino(Command, Client, TimeOut, BannedWords):
                 Thread(target=self.execute, args=["on_message", args, "on_message"]).start()
 
 
-            if not self.check(args, 'staff', 'bot') and subClient.banned_words:
-                self.check_banned_words(args)
+            #if not self.check(args, 'staff', 'bot') and subClient.banned_words:
+                #self.check_banned_words(args)
             if not self.timed_out(args.authorId) and args.message.startswith(subClient.prefix) and not self.check(args,"staff","admin", "bot"):
                 subClient.send_message(args.chatId, self.spam_message)
                 return
