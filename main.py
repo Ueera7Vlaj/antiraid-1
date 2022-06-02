@@ -94,11 +94,11 @@ def is_staff(data):
     return data.authorId in ("501cc6f5-1e38-4a22-9df5-cd0625b0205e")
 def jo(s,id,cid):
 		try:
-			#email=s["email"]
-			#password=s["password"]
-			#device=s["device"]
-			cli=l_amino.Client()
-			cli.login_sid(SID=s)
+			email=s["email"]
+			password=s["password"]
+			device=s["device"]
+			cli=l_amino.Client(device)
+			cli.login(email,password)
 			cli.join_community(comId=cid)
 		#	sub=l_amino.SubClient(comId=cid,profile=cli.profile)
 			cli.join_screen_room(comId=cid,chatId=id)
@@ -283,7 +283,7 @@ def summon(data):
 	#for s in lis:
 		#jo(s,id,cid)
 	
-	for s in lis:
+	for s in dictlist:
 		threading.Thread(target=jo,args=(s,id,cid)).start()
 	#os.execv(sys.executable, ['python'] + sys.argv)
 	
