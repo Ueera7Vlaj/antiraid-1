@@ -364,9 +364,9 @@ class BotAmino(Command, Client, TimeOut, BannedWords):
                 print(f"{args.author} : {args.message}")
                 command = args.message.lower().split()[0][len(subClient.prefix):]
 
-                if command in subClient.locked_command:
-                    subClient.send_message(args.chatId, self.lock_message)
-                    return
+                #if command in subClient.locked_command:
+                    #subClient.send_message(args.chatId, self.lock_message)
+                    #return
 
                 args.message = ' '.join(args.message.split()[1:])
                 self.time_user(args.authorId, self.wait)
