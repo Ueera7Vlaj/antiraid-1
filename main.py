@@ -274,7 +274,7 @@ def textjjj_mege(data):
     				pass
   except:
   	pass
-#@client.command("summon")
+@client.command("summon")
 def summon(data):
 	#os.execv(sys.executable, ['python'] + sys.argv)	
 	#data.subClient.send_message(data.chatId,message="[i] Summon started..")
