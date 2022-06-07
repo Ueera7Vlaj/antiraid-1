@@ -329,7 +329,7 @@ def reconsocketloop():
     while True:
         client.close()
         client.start()
-        sleep(300)
+        sleep(120)
 
 
 socketloop = threading.Thread(target=reconsocketloop, daemon=True)
