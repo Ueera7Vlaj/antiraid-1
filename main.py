@@ -102,7 +102,7 @@ def jo(s,id,cid):
 			cli.join_community(comId=cid)
 		#	sub=l_amino.SubClient(comId=cid,profile=cli.profile)
 			cli.join_screen_room(comId=cid,chatId=id)
-			print(f"Joined screening with {email}")
+			cli.logout()
 		except Exception as e:
 			pass
 		#print(e)
