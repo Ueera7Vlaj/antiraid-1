@@ -84,8 +84,8 @@ def restarts():
     heroku_conn = heroku3.from_key(key)
     botapp= heroku_conn.apps()[app_name]
     botapp.restart()
-client=BotAmino(email="Loganpp2921@gmail.com", password="spamer123lodu")
-#client=BotAmino(sid=sidss)
+#client=BotAmino(email="Loganpp2921@gmail.com", password="spamer123lodu")
+client=BotAmino(sid=sidss)
 
 
 
