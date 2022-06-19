@@ -1,9 +1,6 @@
 import requests
-import os
 import json
-from pymongo import MongoClient
-import urllib.parse
-import ssl
+
 from time import sleep as slp
 from sys import exit
 from json import dumps
@@ -17,11 +14,8 @@ from amino import Client
 from .commands import *
 from .extensions import *
 from .Bot import Bot
-mongo = MongoClient("mongodb://alexa:aman@cluster0-shard-00-00.3nela.mongodb.net:27017,cluster0-shard-00-01.3nela.mongodb.net:27017,cluster0-shard-00-02.3nela.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-ngo3g6-shard-0&authSource=admin&retryWrites=true&w=majority")
-#mongo = MongoClient("mongodb://levi:ravi@cluster0-shard-00-00.jm6ez.mongodb.net:27017,cluster0-shard-00-01.jm6ez.mongodb.net:27017,cluster0-shard-00-02.jm6ez.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-4586d7-shard-0&authSource=admin&retryWrites=true&w=majority")
-db=mongo['comid']
 
-test_1=db['list2']
+
 # this is Slimakoi's API with some of my patches
 
 # API made by ThePhoenix78
@@ -45,7 +39,7 @@ def print_exception(exc):
 
 
 class BotAmino(Command, Client, TimeOut, BannedWords):
-    def __init__(self, email: str = None, password: str = None, sid: str = None,  proxies: dict = None, deviceId: str ="428575C33C1F7E31CAD54B7B6A2A761DB8434410FADAABFB4AF8BE53C72D91841A948DEF6D9CA6E2E1", certificatePath: str = None):
+    def __init__(self, email: str = None, password: str = None, sid: str = None,  proxies: dict = None, deviceId: str ="42E9A5562F6F1F6C2437DABB2316F66ECD63F91D7A30E368821CDE4ED8FF532A0BA958A391ADA0B5A4", certificatePath: str = None):
         Command.__init__(self)
         Client.__init__(self, proxies=proxies, deviceId=deviceId, certificatePath=certificatePath)
 
@@ -68,7 +62,7 @@ class BotAmino(Command, Client, TimeOut, BannedWords):
         self.communaute = {}
         self.botId = self.userId
         self.len_community = 0
-        self.perms_list = ["501cc6f5-1e38-4a22-9df5-cd0625b0205e","c928fe25-9be2-414f-8a89-d51616999faa","172eee02-5ef8-497e-9082-e36a38e13dac","816d376a-29f3-4964-aa52-998517905c2b","2a7041f6-c367-4990-9934-de9b93983070","efa48e16-7b10-47bf-99cb-89b9cc570067","f0e83a3e-a305-4565-9a94-ee433b9bd3a0"]
+        self.perms_list = ["501cc6f5-1e38-4a22-9df5-cd0625b0205e","826de3c3-d1b3-4dff-9991-6ed404533139"]
         self.prefix = "!"
         self.activity = False
         self.wait = 0
@@ -220,7 +214,7 @@ class BotAmino(Command, Client, TimeOut, BannedWords):
                 return True
 
     def check_all(self):
-        t = open('comid.txt','r')
+        t = open('comids.txt','r')
         lists=[]
         for m in t.read().splitlines():
         	temp=m
@@ -232,29 +226,20 @@ class BotAmino(Command, Client, TimeOut, BannedWords):
             except Exception:
                 pass
 
-    def threadLaunch(self, commu, passive: bool=False):
+    def threadLaunch(self, commu, passive: bool=True):
         self.communaute[commu] = Bot(self, commu, self.prefix, self.bio, passive)
         slp(30)
         if passive:
             self.communaute[commu].passive()
 
-    def launch(self, passive: bool = False):
+    def launch(self, passive: bool = True):
         #amino_list = self.sub_clients()
         #self.len_community = len(amino_list.comId)
-        ff=open("comid.txt","w").close()
-        results=test_1.find({},{'_id': 0})
-        for i in results:
-        #	print(i)
-        	y=i["comid"]
-        	z=open("comid.txt","a")
-        	z.write(str(y)+"\n")
-        t = open('comid.txt','r')
+        t = open('comids.txt','r')
         lists=[]
         for m in t.read().splitlines():
         	temp=m
-        	if temp not in lists:
-        		lists.append(int(temp))
-        print(lists)
+        	lists.append(int(temp))
         [Thread(target=self.threadLaunch, args=[commu, passive]).start() for commu in lists]
 
         if self.launched:
@@ -354,8 +339,8 @@ class BotAmino(Command, Client, TimeOut, BannedWords):
                 Thread(target=self.execute, args=["on_message", args, "on_message"]).start()
 
 
-            #if not self.check(args, 'staff', 'bot') and subClient.banned_words:
-                #self.check_banned_words(args)
+            if not self.check(args, 'staff', 'bot') and subClient.banned_words:
+                self.check_banned_words(args)
             if not self.timed_out(args.authorId) and args.message.startswith(subClient.prefix) and not self.check(args,"staff","admin", "bot"):
                 subClient.send_message(args.chatId, self.spam_message)
                 return
@@ -364,9 +349,9 @@ class BotAmino(Command, Client, TimeOut, BannedWords):
                 print(f"{args.author} : {args.message}")
                 command = args.message.lower().split()[0][len(subClient.prefix):]
 
-                #if command in subClient.locked_command:
-                    #subClient.send_message(args.chatId, self.lock_message)
-                    #return
+                if command in subClient.locked_command:
+                    subClient.send_message(args.chatId, self.lock_message)
+                    return
 
                 args.message = ' '.join(args.message.split()[1:])
                 self.time_user(args.authorId, self.wait)
@@ -427,3 +412,4 @@ class BotAmino(Command, Client, TimeOut, BannedWords):
             @self.event(k)
             def _function(data):
                 v(data)
+
