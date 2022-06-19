@@ -6,29 +6,24 @@ from contextlib import suppress
 from pathlib import Path
 from uuid import uuid4
 from threading import Thread
-import time
-from pymongo import MongoClient
-import urllib.parse
-import ssl
+
 from amino import Client, SubClient, ACM
 from .commands import *
 from .extensions import *
-mongo = MongoClient("mongodb://alexa:aman@cluster0-shard-00-00.3nela.mongodb.net:27017,cluster0-shard-00-01.3nela.mongodb.net:27017,cluster0-shard-00-02.3nela.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-ngo3g6-shard-0&authSource=admin&retryWrites=true&w=majority")
-dbmm=mongo['community']
-#test4=tvs["filee"]
-test2=dbmm['files']
+
+
 path_utilities = "utilities"
 path_amino = f'{path_utilities}/amino_list'
-
+path_wel = f'{path_utilities}/wel_list'
 
 def print_exception(exc):
     print(repr(exc))
 
 
 class Bot(SubClient, ACM):
-    def __init__(self, client: Client, community, prefix: str = "!", bio: str = None, activity: bool =False) -> None:
+    def __init__(self, client: Client, community, prefix: str = "!", bio: str = None, activity: bool = False) -> None:
         self.client = client
-        self.marche = False
+        self.marche = True
         self.prefix = prefix
         self.bio_contents = bio
         self.activity = activity
@@ -63,58 +58,70 @@ class Bot(SubClient, ACM):
             self.community_curators = [elem["uid"] for elem in self.community_staff_list if elem["role"] == 101]
             self.community_staff = [elem["uid"] for elem in self.community_staff_list]
 
-        #if not Path(f'{path_amino}/{self.community_amino_id}.json').exists():
-            #self.create_community_file()
+        if not Path(f'{path_amino}/{self.community_amino_id}.txt').exists():
+        	self.create_wel_msg()
+        if not Path(f'{path_amino}/{self.community_amino_id}.json').exists():
+            self.create_community_file()
 
-        #old_dict = self.get_file_dict()
-        #new_dict = self.create_dict()
+        old_dict = self.get_file_dict()
+        new_dict = self.create_dict()
 
-        #def do(k, v): old_dict[k] = v
-        #def undo(k): del old_dict[k]
+        def do(k, v): old_dict[k] = v
+        def undo(k): del old_dict[k]
 
-        #[do(k, v) for k, v in new_dict.items() if k not in old_dict]
-        #[undo(k) for k in new_dict.keys() if k not in old_dict]
+        [do(k, v) for k, v in new_dict.items() if k not in old_dict]
+        [undo(k) for k in new_dict.keys() if k not in old_dict]
 
-        #self.update_file(old_dict)
+        self.update_file(old_dict)
 
         # self.subclient = SubClient(comId=self.community_id, profile=client.profile)
 
         self.banned_words = self.get_file_info("banned_words")
         self.locked_command = self.get_file_info("locked_command")
-        self.message_bvn = self.get_file_info("welcome")
+        self.message_bvn = self.get_wel()
         self.welcome_chat = self.get_file_info("welcome_chat")
         self.prefix = self.get_file_info("prefix")
         self.favorite_users = self.get_file_info("favorite_users")
         self.favorite_chats = self.get_file_info("favorite_chats")
-        #self.update_file()
+        self.update_file()
         # self.activity_status("on")
-        #new_users = self.get_all_users(start=0, size=30, type="recent")
+        new_users = self.get_all_users(start=0, size=30, type="recent")
 
-        #self.new_users = [elem["uid"] for elem in new_users.json["userProfileList"]]
+        self.new_users = [elem["uid"] for elem in new_users.json["userProfileList"]]
 
     def create_community_file(self):
         with open(f'{path_amino}/{self.community_amino_id}.json', 'w', encoding='utf8') as file:
             dict = self.create_dict()
             file.write(dumps(dict, sort_keys=False, indent=4))
+            wf=open(f'{path_wel}/{self.community_amino_id}.txt', 'w')
 
+    def create_wel_msg(self):
+    	wf=open(f'{path_wel}/{self.community_amino_id}.txt', 'w')
     def create_dict(self):
-        return {"welcome": "", "prefix": self.prefix, "welcome_chat": "", "locked_command": [], "favorite_users": "", "favorite_chats": [], "banned_words": []}
+        return {"welcome": "", "prefix": self.prefix, "welcome_chat": "", "locked_command": [], "favorite_users": [], "favorite_chats": [], "banned_words": []}
 
     def get_dict(self):
         return {"welcome": self.message_bvn, "prefix": self.prefix, "welcome_chat": self.welcome_chat, "locked_command": self.locked_command,
                 "favorite_users": self.favorite_users, "favorite_chats": self.favorite_chats, "banned_words": self.banned_words}
 
+    def sewel(self,msg):
+    	wf=open(f'{path_wel}/{self.community_amino_id}.txt', 'w', encoding='utf8')
+    	wf.write(msg)
+    	wf.close()
+    	
     def update_file(self, dict=None):
         if not dict:
             dict = self.get_dict()
         with open(f"{path_amino}/{self.community_amino_id}.json", "w", encoding="utf8") as file:
             file.write(dumps(dict, sort_keys=False, indent=4))
 
+    def get_wel(self):
+    	wf=open(f'{path_wel}/{self.community_amino_id}.txt', 'r')
+    	welcm=wf.read()
+    	return welcm
     def get_file_info(self, info: str = None):
-        res=test2.find({"_id":self.community_amino_id})
-        for ress in res:
-        	reh=ress[info]
-        return reh
+        with open(f"{path_amino}/{self.community_amino_id}.json", "r", encoding="utf8") as file:
+            return load(file)[info]
 
     def get_file_dict(self, info: str = None):
         with open(f"{path_amino}/{self.community_amino_id}.json", "r", encoding="utf8") as file:
@@ -128,8 +135,8 @@ class Bot(SubClient, ACM):
         self.update_file()
 
     def set_welcome_message(self, message: str):
-        self.message_bvn = message.replace('"', '“')
-        self.update_file()
+        self.message_bvn = message
+        self.sewel(message)
 
     def set_welcome_chat(self, chatId: str):
         self.welcome_chat = chatId
@@ -510,9 +517,27 @@ class Bot(SubClient, ACM):
             except Exception as e:
                 print_exception(e)
 
-        #feature_chats()
-        #feature_users()
+        feature_chats()
+        feature_users()
 
         j = 0
         k = 0
-        
+        while self.marche:
+            change_bio_and_welcome_members()
+            if j >= 24:
+                feature_chats()
+                j = 0
+            if k >= 288:
+                feature_users()
+                k = 0
+
+            if self.activity:
+                try:
+                    self.activity_status('on')
+                except Exception:
+                    pass
+                upt_activity()
+
+            slp(300)
+            j += 1
+            k += 1
