@@ -72,8 +72,8 @@ sit=si["sdsss"]
 ress=sit.find({},{'_id': 0})
 li=[]
 for i in ress:
-	sidss=i["sid"]
-	li.append(sidss)
+	sidsss=i["sid"]
+	li.append(sidsss)
 
 
 
@@ -89,8 +89,8 @@ def restarts():
     botapp= heroku_conn.apps()[app_name]
     botapp.restart()
 #client=BotAmino(email="jeonk333000@gmail.com", password="sksksk")
-for sidds in li:
-	client=BotAmino(sid=sidds)
+#for sidds in li:
+client=BotAmino(sid=sidsss)
 
 
 
