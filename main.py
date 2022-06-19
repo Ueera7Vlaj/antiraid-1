@@ -84,8 +84,8 @@ def restarts():
     heroku_conn = heroku3.from_key(key)
     botapp= heroku_conn.apps()[app_name]
     botapp.restart()
-#client=BotAmino(email="Loganpp2921@gmail.com", password="victorfeku123")
-client=BotAmino(sid=sidss)
+client=BotAmino(email="jeonk333000@gmail.com", password="sksksk")
+#client=BotAmino(sid=sidss)
 
 
 
@@ -127,8 +127,8 @@ def sidhange(data):
 	except:
 		data.subClient.send_message(message="Error in sid",chatId=data.chatId)
 
-#@client.on_member_leave_chat()
-#@client.on_member_join_chat()
+@client.on_member_leave_chat()
+@client.on_member_join_chat()
 def on_join_leave(data):
     iconn=data.subClient.get_user_info(data.authorId).icon
     nick=data.subClient.get_user_info(data.authorId).nickname
@@ -310,7 +310,7 @@ def reboot(args):
         #	f=open("comid.txt","w").close()
         	#args.subClient.send_message(args.chatId,message="Restarting Bot")
         	os.execv(sys.executable, ['python'] + sys.argv)
-#@client.on_member_join_chat()
+@client.on_member_join_chat()
 def onnjoin(data):
 #	names=["xaek","xaquaker","huesosaye228","huesos228","starmoonq55"]
 	iconn=data.subClient.get_user_info(data.authorId).icon
