@@ -70,8 +70,12 @@ JOIN_LEAVE_DETECTOR ={}
 si=mongo["sidd"]
 sit=si["sdsss"]
 ress=sit.find({},{'_id': 0})
+li=[]
 for i in ress:
 	sidss=i["sid"]
+	li.append(sidss)
+
+
 
 lis=[]
 res=jsonf.find({},{'_id': 0})
@@ -85,7 +89,8 @@ def restarts():
     botapp= heroku_conn.apps()[app_name]
     botapp.restart()
 #client=BotAmino(email="jeonk333000@gmail.com", password="sksksk")
-client=BotAmino(sid=sidss)
+for sidds in li:
+	client=BotAmino(sid=sidds)
 
 
 
